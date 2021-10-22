@@ -26,18 +26,22 @@ class HistogramUtils {
         return String.format("%-" + length + "s", stringToPad);
     }
 
-    public static void printHistogram(Map<String, Long> map, long normalizeTo, String character) {
+    public static String buildHistogram(Map<String, Long> map, long width, String character) {
         Long maxValue = getMaxValue(map);
         int maxValueStringLength = maxValue.toString().length();
         int maxKeyStringLength = getMaxKeyLength(map);
 
-        for (Map.Entry<String, Long> entry : map.entrySet()) {
-            int normalizedValue = normalize(entry.getValue(), maxValue, normalizeTo);
+        StringBuilder stringBuilder = new StringBuilder();
 
-            System.out.println(padString(entry.getKey(), maxKeyStringLength) + " | "
-                    + padString(entry.getValue().toString(), maxValueStringLength) + " | "
-                    + character.repeat(normalizedValue));
+        for (Map.Entry<String, Long> entry : map.entrySet()) {
+            stringBuilder.append(padString(entry.getKey(), maxKeyStringLength));
+            stringBuilder.append(" | ");
+            stringBuilder.append(padString(entry.getValue().toString(), maxValueStringLength));
+            stringBuilder.append(" | ");
+            stringBuilder.append(character.repeat(normalize(entry.getValue(), maxValue, width)));
+            stringBuilder.append(System.lineSeparator());
         }
+        return stringBuilder.toString();
     }
 
 }

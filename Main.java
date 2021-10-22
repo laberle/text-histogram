@@ -3,12 +3,12 @@ import java.util.TreeMap;
 
 class Main {
 
-    private static long NORMALIZE_TO = 50L;
-    private static String DEFAULT_CHARACTER = "*";
+    private static long WIDTH = 50L;
+    private static String DEFAULT_CHARACTER = "█";
 
     public static void main(String[] args) {
         Map<String, Long> map = initializeMap();
-        HistogramUtils.printHistogram(map, NORMALIZE_TO, DEFAULT_CHARACTER);
+        System.out.println(HistogramUtils.buildHistogram(map, WIDTH, DEFAULT_CHARACTER));
     }
 
     private static Map<String, Long> initializeMap() {
